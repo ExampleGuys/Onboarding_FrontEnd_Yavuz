@@ -20,4 +20,13 @@ public class OnboardingPages extends BasePage {
     public WebElement headlineCompletionDateAtTheLatest;
     @FindBy(xpath = "//h2[text()='Comments']")
     public WebElement headlineComments;
+
+    @FindBy(xpath = "(//*[@class='ant-space-item'])[4]")
+    public WebElement buttonShowLogs;
+
+    @FindBy(xpath = "//*[text()='Drafts']")
+    public WebElement draftsTab;
+
+    @FindBy(xpath = "(//*[@class='ant-space-item'])[5]")
+    public WebElement buttonEditDrafts;
 }

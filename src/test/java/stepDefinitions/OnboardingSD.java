@@ -9,13 +9,14 @@ import utilities.ReusableMethods;
 
 public class OnboardingSD {
     OnboardingPages onboardingElements = new OnboardingPages();
-    CommonPages commonElements=new CommonPages();
+    CommonPages commonElements = new CommonPages();
 
     @Given("The user goes to staging url")
     public void the_user_goes_to_staging_url() {
         Driver.getDriver().get(ConfigReader.getProperty("url"));
 
     }
+
     @And("User logs into the web application with the given test data as a requester")
     public void userLogsIntoTheWebApplicationWithTheGivenTestDataAsARequester() {
         ReusableMethods.login();
@@ -23,23 +24,24 @@ public class OnboardingSD {
 
     @Given("The User click on the “Onboarding” section in the Navigation Menu")
     public void the_user_click_on_the_onboarding_section_in_the_navigation_menu() {
-      commonElements.navMenuOnboarding.click();
+        commonElements.navMenuOnboarding.click();
 
     }
+
     @Given("The user click on the “New Onboarding” button top right corner of the page")
     public void the_user_click_on_the_new_onboarding_button_top_right_corner_of_the_page() {
         onboardingElements.buttonNewOnboarding.click();
 
     }
+
     @Then("the user should seen Personal Information section")
     public void the_user_should_seen_personal_ınformation_section() {
-        assert(onboardingElements.headlinePersonalInformation.isDisplayed());
-
+        assert (onboardingElements.headlinePersonalInformation.isDisplayed());
     }
 
     @Then("the user should seen Company Registration section")
     public void theUserShouldSeenCompanyRegistrationSection() {
-        assert(onboardingElements.headlineCompanyRegistration.isDisplayed());
+        assert (onboardingElements.headlineCompanyRegistration.isDisplayed());
     }
 
     @Then("the user should seen Resources section")
@@ -54,6 +56,31 @@ public class OnboardingSD {
 
     @Then("the user should seen Comments section")
     public void theUserShouldSeenCommentsSection() {
+        assert (onboardingElements.headlineComments.isDisplayed());
+    }
+
+    @Then("The User verify that “Show Logs” button in the Action section is visible")
+    public void theUserVerifyThatShowLogsButtonInTheActionSectionIsVisible() {
+        assert(onboardingElements.buttonShowLogs.isDisplayed());
+    }
+
+    @And("The User click on Draft tab under the List of Onboardings headline")
+    public void theUserClickOnDraftTabUnderTheListOfOnboardingsHeadline() {
+        onboardingElements.draftsTab.click();
+    }
+
+    @And("The User click on edit icon in the Actions section of first element of list")
+    public void theUserClickOnEditIconInTheActionsSectionOfFirstElementOfList() {
+        onboardingElements.buttonEditDrafts.click();
+    }
+
+    @Then("the User verify that Completion Date at The Latest section in the Edit Onboarding page is visible")
+    public void theUserVerifyThatCompletionDateAtTheLatestSectionInTheEditOnboardingPageIsVisible() {
+        assert(onboardingElements.headlineCompletionDateAtTheLatest.isDisplayed());
+    }
+
+    @Then("the User verify that Comments section in the Edit Onboarding page is visible")
+    public void theUserVerifyThatCommentsSectionInTheEditOnboardingPageIsVisible() {
         assert (onboardingElements.headlineComments.isDisplayed());
     }
 }

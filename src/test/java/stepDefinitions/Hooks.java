@@ -8,10 +8,9 @@ import utilities.Driver;
 import utilities.ReusableMethods;
 
 public class Hooks {
-     @After
+    @After
     public void closeDriver(Scenario scenario){
         if (!(scenario.isFailed())){
-           ReusableMethods.logout();
            Driver.quitDriver();
         }
     }
