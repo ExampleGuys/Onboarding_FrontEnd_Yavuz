@@ -22,6 +22,12 @@ public class CommonPages extends BasePage {
     @FindBy(xpath = "//a[@href='/sign-in']")
     public WebElement NavMenuLogout;
 
+    @FindBy(xpath = "//span[@title='20 / page']")
+    public WebElement pageAmountBottomOfThePage;
+
+    @FindBy(xpath = "//*[@class='ant-pagination-total-text']")
+    public WebElement totalPageAmount;
+
 
 
 

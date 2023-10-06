@@ -22,8 +22,8 @@ public class ReusableMethods {
 
     static CommonPages pages = new CommonPages();
     public static void login(){
-        pages.sectionEmail.sendKeys(ConfigReader.getProperty("email"));
-        pages.sectionPassword.sendKeys(ConfigReader.getProperty("password"));
+        pages.sectionEmail.sendKeys(ConfigurationReader.get("email"));
+        pages.sectionPassword.sendKeys(ConfigurationReader.get("password"));
         pages.buttonsignIn.click();
 
     }

@@ -2,71 +2,69 @@ package utilities;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import java.time.Duration;
 
 public class Driver {
-    /*
-        Driver claass'indan drigiver'i getDriver methodu ile kullaniyoruz
-        sonradan projeye katilan insanlarin Driver class'indan obje olusturarak
-        driver kullanmaya calismalarini engellemek icin
-
-        Driver class'ini SINGLEON PATTERN ile duzenleyebiliriz
-        Bunun icin Driver class'inin parametresiz consrustor'ini olusturup
-        access modifier'ini private yapmamiz yeterli olur
-     */
-
-    //kimse bu class'dan obje uretemez
-    private Driver(){
+    private Driver() {
 
     }
-    static WebDriver driver;
 
-    static ChromeOptions ops = new ChromeOptions();
+    private static WebDriver driver;
 
     public static WebDriver getDriver() {
+        // Test
         if (driver == null) {
-            switch (ConfigReader.getProperty("browser")) {
+            // this line will tell which browser should open based on the value from properties file
+            String browser = ConfigurationReader.get("browser");
+            switch (browser) {
                 case "chrome":
-                    ops.addArguments("--remote-allow-origins=*");
-                    WebDriverManager.chromedriver().setup();
+                    ChromeOptions options = new ChromeOptions();
+                    options.addArguments("--remote-allow-origins=*");
                     driver = new ChromeDriver();
                     break;
-                case "safari":
-                    WebDriverManager.safaridriver().setup();
-                    driver = new SafariDriver();
+                case "chrome-headless":
+                    driver = new ChromeDriver(new ChromeOptions().setHeadless(true));
                     break;
-
                 case "firefox":
-                    WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver();
                     break;
-                default:
-                    ops.addArguments("--remote-allow-origins=*");
-                    WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver(ops);
+                case "firefox-headless":
+                    driver = new FirefoxDriver(new FirefoxOptions().setHeadless(true));
+                    break;
+                case "ie":
+                    if (!System.getProperty("os.name").toLowerCase().contains("windows"))
+                        throw new WebDriverException("Your OS doesn't support Internet Explorer");
+                    driver = new InternetExplorerDriver();
+                    break;
 
+                case "edge":
+                    if (!System.getProperty("os.name").toLowerCase().contains("windows"))
+                        throw new WebDriverException("Your OS doesn't support Edge");
+                    driver = new EdgeDriver();
+                    break;
 
+                case "safari":
+                    if (!System.getProperty("os.name").toLowerCase().contains("mac"))
+                        throw new WebDriverException("Your OS doesn't support Safari");
+                    driver = new SafariDriver();
+                    break;
             }
 
-            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         }
+
         return driver;
     }
 
     public static void closeDriver() {
-        if (driver != null) {
-            driver.close();
-            driver = null;
-        }
-    }
-
-    public static void quitDriver() {
         if (driver != null) {
             driver.quit();
             driver = null;
