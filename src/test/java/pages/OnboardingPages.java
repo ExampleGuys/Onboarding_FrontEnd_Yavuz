@@ -18,6 +18,8 @@ public class OnboardingPages extends BasePage {
     public WebElement headlineResources;
     @FindBy(xpath = "//h2[text()='Completion Date at The Latest']")
     public WebElement headlineCompletionDateAtTheLatest;
+    @FindBy(xpath = "//h2[text()='Attachments']")
+    public WebElement headlineAttachments;
     @FindBy(xpath = "//h2[text()='Comments']")
     public WebElement headlineComments;
 
@@ -29,4 +31,7 @@ public class OnboardingPages extends BasePage {
 
     @FindBy(xpath = "(//*[@class='ant-space-item'])[5]")
     public WebElement buttonEditDrafts;
+
+    @FindBy(xpath = "//span[@class='ant-upload']")
+    public WebElement buttonUploadAttachment;
 }

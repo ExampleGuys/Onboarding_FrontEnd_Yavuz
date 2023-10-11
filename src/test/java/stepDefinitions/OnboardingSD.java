@@ -3,7 +3,7 @@ package stepDefinitions;
 import io.cucumber.java.en.*;
 import pages.CommonPages;
 import pages.OnboardingPages;
-import utilities.ConfigReader;
+import utilities.ConfigurationReader;
 import utilities.Driver;
 import utilities.ReusableMethods;
 
@@ -13,7 +13,8 @@ public class OnboardingSD {
 
     @Given("The user goes to staging url")
     public void the_user_goes_to_staging_url() {
-        Driver.getDriver().get(ConfigReader.getProperty("url"));
+
+        Driver.getDriver().get(ConfigurationReader.get("url"));
 
     }
 
@@ -82,5 +83,45 @@ public class OnboardingSD {
     @Then("the User verify that Comments section in the Edit Onboarding page is visible")
     public void theUserVerifyThatCommentsSectionInTheEditOnboardingPageIsVisible() {
         assert (onboardingElements.headlineComments.isDisplayed());
+    }
+
+    @And("The User scroll in to bottom of the page")
+    public void theUserScrollInToBottomOfThePage() {
+        ReusableMethods.scrollIntoVIewJS(commonElements.pageAmountBottomOfThePage);
+    }
+
+    @Then("The User verify that total number of elements in the List of Onboardings is visible")
+    public void theUserVerifyThatTotalNumberOfElementsInTheListOfOnboardingsIsVisible() {
+        assert(commonElements.totalPageAmount.isDisplayed());
+    }
+
+    @Then("The User verify that edit icon in the Actions section of first element of list should be visible")
+    public void theUserVerifyThatEditIconInTheActionsSectionOfFirstElementOfListShouldBeVisible() {
+        assert (onboardingElements.buttonEditDrafts.isDisplayed());
+    }
+
+    @Then("the User verify that Personel Information section in the Edit Onboarding page is visible")
+    public void theUserVerifyThatPersonelInformationSectionInTheEditOnboardingPageIsVisible() {
+        assert (onboardingElements.headlinePersonalInformation.isDisplayed());
+    }
+
+    @Then("the User verify that Company Registration section in the Edit Onboarding page is visible")
+    public void theUserVerifyThatCompanyRegistrationSectionInTheEditOnboardingPageIsVisible() {
+        assert (onboardingElements.headlineCompanyRegistration.isDisplayed());
+    }
+
+    @Then("the User verify that Resources section in the Edit Onboarding page is visible")
+    public void theUserVerifyThatResourcesSectionInTheEditOnboardingPageIsVisible() {
+        assert (onboardingElements.headlineResources.isDisplayed());
+    }
+
+    @Then("the user should seen Attachments section")
+    public void theUserShouldSeenAttachmentsSection() {
+        assert (onboardingElements.headlineAttachments.isDisplayed());
+    }
+
+    @Then("the user should seen “Select File” button in the Attachments section")
+    public void theUserShouldSeenSelectFileButtonInTheAttachmentsSection() {
+        assert (onboardingElements.buttonUploadAttachment.isDisplayed());
     }
 }
